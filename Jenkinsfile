@@ -7,8 +7,13 @@ node('MAVEN_JDK8') {
     stage('build') {
         script: 'export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH" && mvn package'
         }
-    stage('postbuild') {
-        archiveArtifacts artifacts: '**/target/gameoflife.war', followSymlinks: false
-        junit '**/surefire-reports/TEST-*.xml'
+    stage('Archive the Artifacts') {
+        archiveArtifacts onlyIfSuccessful: true,
+            artifacts: '**/target/gameoflife.war',
+            allowEmptyArchive: false
+        }    
+    stage('Publish Test Results') {
+        junit testResults: '**/surefire-reports/TEST-*.xml',
+              allowEmptyResults: true
         }
 }
