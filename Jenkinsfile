@@ -1,6 +1,9 @@
 pipeline {
     agent { label 'MAVEN_JDK8' }
     triggers { pollSCM('* * * * *') }
+    parameters {
+        string(name: 'MAVEN_GOAL', defaultValue: 'package', description: 'This is a Maven goal.')
+    }
     stages {
         stage('VCS') {
             steps {
@@ -13,7 +16,7 @@ pipeline {
             jdk 'openjdk_8'
             }
             steps {
-                sh 'mvn package'
+                sh ${params.MAVEN_GOAL}
             }
         }
         stage('Archive the Package') {
