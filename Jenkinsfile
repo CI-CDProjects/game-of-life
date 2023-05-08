@@ -8,20 +8,23 @@ pipeline {
             }
         }
         stage('Build') {
+        tools {
+            jdk 'openjdk_8'
+        }
             steps {
-                script: 'export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH"' && 'mvn package'
+                script: 'mvn package'
             }
         }
         stage('Archive the Package') {
             steps {
-                archiveArtifacts onlyIfSuccessful: true
-                    artifacts: '**/target/gameoflife.war'
+                archiveArtifacts onlyIfSuccessful: true,
+                    artifacts: '**/target/gameoflife.war',
                     allowEmptyArchive: false
             }
         }
         stage('Publish the Test Results') {
             steps {
-                junit testResults: '**/surefire-reports/TEST-*.xml'
+                junit testResults: '**/surefire-reports/TEST-*.xml',
                 allowEmptyResults: true
             }
         }
