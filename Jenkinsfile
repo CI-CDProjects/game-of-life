@@ -8,7 +8,7 @@ pipeline {
                     branch: 'declarative'
             }
         }
-        stage('Build') {
+        stage('Build the Package') {
         tools {
             jdk 'openjdk_8'
             }
