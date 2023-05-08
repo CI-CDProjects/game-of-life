@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
         tools {
             jdk 'openjdk_8'
-        }
+            }
             steps {
                 script: 'mvn package'
             }
