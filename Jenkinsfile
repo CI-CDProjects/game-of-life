@@ -2,7 +2,7 @@ pipeline {
     agent { label 'MAVEN_JDK8' }
     triggers { pollSCM('* * * * *') }
     parameters {
-        string(name: 'MAVEN_GOAL', defaultValue: 'package', description: 'This is a Maven goal.')
+        choice(name: 'MAVEN_GOAL', choices: ['package', 'install', 'clean', 'test', 'compile'] description: 'This is a Maven goal.')
     }
     stages {
         stage('VCS') {
