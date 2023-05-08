@@ -16,7 +16,7 @@ pipeline {
             jdk 'openjdk_8'
             }
             steps {
-                sh ${params.MAVEN_GOAL}
+                sh "mvn ${params.MAVEN_GOAL}"
             }
         }
         stage('Archive the Package') {
