@@ -12,7 +12,7 @@ pipeline {
             jdk 'openjdk_8'
             }
             steps {
-                script: 'mvn package'
+                sh 'mvn package'
             }
         }
         stage('Archive the Package') {
