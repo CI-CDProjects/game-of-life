@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build the Package') {
         tools {
-            jdk 'openjdk_8'
+            jdk 'JAVA8_UBUNTU20.04'
             }
             steps {
                 sh "mvn ${params.MAVEN_GOAL}"
