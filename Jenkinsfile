@@ -32,5 +32,20 @@ pipeline {
                 allowEmptyResults: true
             }
         }
+        stage('Email notification') {
+            steps {
+                mail to: 'tqpipe@gmail.com',
+                    subject: 'Current Build Status',
+                    body: 'This build execution has failed'
+            }
+            post {            
+                success {
+                    echo 'Build has been executed successfuly'
+                }
+                failure {
+                    echo 'Build has been failed to execute'
+                }
+            }       
+        }       
     }
 }
