@@ -32,20 +32,19 @@ pipeline {
                 allowEmptyResults: true
             }
         }
-        stage('Email notification') {
-            steps {
-                mail to: 'tqpipe@gmail.com',
-                    subject: 'Current Build Status',
-                    body: 'This build execution has failed'
-            }
-            post {            
-                success {
-                    echo 'Build has been executed successfuly'
-                }
-                failure {
-                    echo 'Build has been failed to execute'
-                }
-            }       
-        }       
+    }
+    post {            
+        success {
+            mail to: 'tqdevops-team@qt.com',
+            from: 'tqdevops@qt.com',
+            subject: "Jenkins build status of ${JOB_NAME} with id ${BUILD_ID}",
+            body: "Refer Here ${BUILD_URL} for more details. Build is Successful"
+        }
+        failure {
+            mail to: "${GIT_AUTHOR_EMAIL}",
+            from: 'tqdevops@qt.com',
+            subject: "Jenkins build status of ${JOB_NAME} with id ${BUILD_ID}",
+            body: "Refer Here ${BUILD_URL} for more details. Build has Failed"
+        }
     }
 }
